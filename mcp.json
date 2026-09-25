@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "realie": {
+      "url": "https://app.realie.ai/api/mcp"
+    }
+  }
+}

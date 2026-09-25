@@ -1,0 +1,25 @@
+{
+  "name": "realie",
+  "displayName": "Realie",
+  "version": "1.0.0",
+  "description": "U.S. property data from Realie: look up any parcel by address or APN, search properties, find nearby parcels, and pull comparable sales. Owners, sales history, mortgages, liens, tax assessments, and AVM values for 164M+ parcels.",
+  "author": {
+    "name": "Realie",
+    "email": "support@realie.ai"
+  },
+  "homepage": "https://docs.realie.ai/realie-mcp-server",
+  "repository": "https://github.com/realie-ai/realie-plugin",
+  "license": "MIT",
+  "keywords": [
+    "realie",
+    "realie property data",
+    "property data",
+    "parcel",
+    "apn",
+    "real estate",
+    "comps",
+    "avm",
+    "mcp"
+  ],
+  "logo": "assets/logo.svg"
+}
