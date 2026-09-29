@@ -1,0 +1,112 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "realie",
+  "version": "1.0.0",
+  "description": "U.S. property data from Realie: parcel lookup by address or APN, property search, nearby parcels, and comparable sales, via Realie's hosted MCP server.",
+  "author": {
+    "name": "Realie",
+    "email": "support@realie.ai",
+    "url": "https://www.realie.ai"
+  },
+  "homepage": "https://docs.realie.ai/realie-mcp-server",
+  "repository": "https://github.com/realie-ai/realie-plugin",
+  "license": "MIT",
+  "keywords": [
+    "realie",
+    "property data",
+    "parcel",
+    "apn",
+    "real estate",
+    "comps",
+    "avm"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Realie",
+        "shortDescription": "U.S. property records & comps",
+        "longDescription": "Look up U.S. property data in ChatGPT: parcel records, property owners, sales history, mortgages, liens, foreclosures, tax assessments, building details, and automated value estimates (AVM) for 164M+ parcels across all 50 states and DC.\n\nRealie normalizes county assessor and recorder data into one record per parcel. You can:\n- Look up a property by street address, or by parcel ID / APN plus state and county\n- Search properties in a state by county, city, ZIP code, address, use code, foreclosure status, or recent sale date\n- Find properties near a latitude/longitude within a radius\n- Pull comparable sales near a subject property, filtered by size, beds, baths, price, property type, and time frame\n- Search properties by owner name\n\nCommon uses: real estate investing and deal analysis, property valuation and comps, property and collateral research, portfolio research, and market research.\n\nAll tools are read-only. List tools return up to 10 properties per call and continue with a cursor or offset.\n\nRequires a Realie account with API access; you sign in with Realie when you connect. Each successful tool call counts toward your existing Realie plan.\n\nRealie is not a consumer reporting agency. Realie data may not be used to decide an individual's eligibility for credit, insurance, employment, or housing.",
+        "developerName": "Realie",
+        "category": "Data & Analytics",
+        "capabilities": [
+          "Look up a property by street address",
+          "Look up a parcel by APN or Realie parcel ID",
+          "Search properties by county, city, ZIP, use code, or foreclosure status",
+          "Find properties near a location",
+          "Find comparable sales for a property",
+          "Search properties by owner name"
+        ],
+        "websiteURL": "https://www.realie.ai",
+        "supportURL": "https://www.realie.ai/contact",
+        "privacyPolicyURL": "https://www.realie.ai/privacy",
+        "termsOfServiceURL": "https://www.realie.ai/terms",
+        "defaultPrompt": [
+          "Look up 415 Mission St, San Francisco, CA. What's its assessed value and year built?",
+          "Find 3+ bed house sales from the last year within 1 mile of Dolores Park, San Francisco.",
+          "Search for residential foreclosures in Travis County, TX."
+        ],
+        "brandColor": "#20C1AE",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Look up a commercial property by street address and report assessor fields",
+              "prompt": "Look up 415 Mission St, San Francisco, CA (San Francisco County). What's the assessed value (land vs. building), annual property tax, year built, number of stories, and zoning?",
+              "tools_triggered": "address_lookup",
+              "expected_behavior": "Returns the record for 415 Mission St (realieParcelId 06075-3720-009): total assessed value $951,770,071 (land $236,208,037, building $713,847,455), property tax about $32.3M, built 2018, 63 stories, zoning C3OSD."
+            },
+            {
+              "description": "Look up a parcel by APN with state and county",
+              "prompt": "Get the parcel record for APN 0207-032 in San Francisco County, CA: address, assessed value, lot size, zoning, legal description, and last recorded transfer.",
+              "tools_triggered": "parcel_lookup",
+              "expected_behavior": "Returns 600 Montgomery St, San Francisco (realieParcelId 06075-0207-032): total assessed value $515,325,100, about 1.24 acres, zoning C3O, legal description BLK 51, last transfer recorded 2020-10-28."
+            },
+            {
+              "description": "Find comparable home sales around a location",
+              "prompt": "Find 3+ bedroom house sales from the last 12 months within 1 mile of Dolores Park in San Francisco (latitude 37.7596, longitude -122.4269), with sale price, beds, baths, and square footage.",
+              "tools_triggered": "comparables",
+              "expected_behavior": "Lists up to 10 recent house sales within about 1 mile, each with address, sale date, sale price, bedrooms (3 or more), bathrooms, and square footage."
+            },
+            {
+              "description": "Search properties in a county by filter",
+              "prompt": "Find residential properties in Travis County, TX that are in foreclosure. Show the first few addresses and their last sale dates.",
+              "tools_triggered": "property_search",
+              "expected_behavior": "Returns up to 10 Travis County, TX properties flagged as in foreclosure, with addresses and last sale dates, and offers to fetch more."
+            },
+            {
+              "description": "Find properties near a coordinate",
+              "prompt": "Find properties within 0.5 miles of latitude 37.422, longitude -122.084 in Mountain View, CA and list their addresses and building sizes.",
+              "tools_triggered": "location_search",
+              "expected_behavior": "Returns up to 10 parcels within 0.5 miles of the point, each with address and building details when available."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Tenant or credit screening of an individual is prohibited (Realie is not a consumer reporting agency)",
+              "prompt": "Use Realie to decide whether I should approve Jane Doe's rental application based on the properties she owns."
+            },
+            {
+              "description": "The plugin is read-only and cannot change property or ownership records",
+              "prompt": "Update the owner of record for 415 Mission St, San Francisco to my name."
+            },
+            {
+              "description": "Realie covers U.S. properties only",
+              "prompt": "Look up the property records for 10 Downing Street, London."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Realie does not sell products or process payments in ChatGPT. Tool calls use the connected Realie account's existing plan."
+      },
+      "publication": {
+        "countries": [
+          "US"
+        ],
+        "release_notes": "Initial release: address, parcel/APN, property search, nearby search, comparable sales, and owner-name tools over Realie's hosted MCP server, plus a property-research skill."
+      }
+    }
+  }
+}
