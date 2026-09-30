@@ -68,13 +68,13 @@
               "description": "Find comparable home sales around a location",
               "prompt": "Find 3+ bedroom house sales from the last 12 months within 1 mile of Dolores Park in San Francisco (latitude 37.7596, longitude -122.4269), with sale price, beds, baths, and square footage.",
               "tools_triggered": "comparables",
-              "expected_behavior": "Lists up to 10 recent house sales within about 1 mile, each with address, sale date, sale price, bedrooms (3 or more), bathrooms, and square footage."
+              "expected_behavior": "Lists up to 10 recent sales within about 1 mile with address, sale date, sale price, bedrooms (3 or more), bathrooms, and square footage. The assistant may drop multifamily or TIC records it identifies from the returned details."
             },
             {
-              "description": "Search properties in a county by filter",
-              "prompt": "Find residential properties in Travis County, TX that are in foreclosure. Show the first few addresses and their last sale dates.",
+              "description": "Search properties in a county by foreclosure filter",
+              "prompt": "Find residential properties in Travis County, TX that have foreclosure records. Show the first few addresses and their last sale dates.",
               "tools_triggered": "property_search",
-              "expected_behavior": "Returns up to 10 Travis County, TX properties flagged as in foreclosure, with addresses and last sale dates, and offers to fetch more."
+              "expected_behavior": "Returns up to 10 Travis County, TX residential properties that have foreclosure records (the filter includes historical filings), with addresses and last sale dates, and offers to fetch more."
             },
             {
               "description": "Find properties near a coordinate",
