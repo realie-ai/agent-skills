@@ -41,9 +41,9 @@
         "privacyPolicyURL": "https://www.realie.ai/privacy",
         "termsOfServiceURL": "https://www.realie.ai/terms",
         "defaultPrompt": [
-          "Look up 415 Mission St, San Francisco, CA. What's its assessed value and year built?",
-          "Find 3+ bed house sales from the last year within 1 mile of Dolores Park, San Francisco.",
-          "Search for residential foreclosures in Travis County, TX."
+          "Look up 10663 Fairhaven Way, Orlando, FL. What's it worth and when did it last sell?",
+          "Find 3+ bed house sales from the last year within 1 mile of 10663 Fairhaven Way, Orlando, FL.",
+          "Find homes in Winter Park, FL that sold since January 1, 2026."
         ],
         "brandColor": "#20C1AE",
         "composerIcon": "./assets/icon.png",
@@ -53,34 +53,34 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Look up a commercial property by street address and report assessor fields",
-              "prompt": "Look up 415 Mission St, San Francisco, CA (San Francisco County). What's the assessed value (land vs. building), annual property tax, year built, number of stories, and zoning?",
+              "description": "Look up a single-family home by street address and report assessor, valuation, and sale fields",
+              "prompt": "Look up 10663 Fairhaven Way, Orlando, FL (Orange County). What are the beds, baths, square footage, year built, assessed value, property tax, estimated value, and last sale?",
               "tools_triggered": "address_lookup",
-              "expected_behavior": "Returns the record for 415 Mission St (realieParcelId 06075-3720-009): total assessed value $951,770,071 (land $236,208,037, building $713,847,455), property tax about $32.3M, built 2018, 63 stories, zoning C3OSD."
+              "expected_behavior": "Returns 10663 Fairhaven Way, Orlando, FL 32825 (realieParcelId 12095-08-23-31-0174-00-030): 4 beds, 2.5 baths, 2,538 sq ft, built 1998, pool, assessed value $446,520, 2025 property tax $7,757.34, Realie estimated value about $556,700, last sale July 12, 2021 for $360,000."
             },
             {
               "description": "Look up a parcel by APN with state and county",
-              "prompt": "Get the parcel record for APN 0207-032 in San Francisco County, CA: address, assessed value, lot size, zoning, legal description, and last recorded transfer.",
+              "prompt": "Get the parcel record for APN 32-22-31-9350-02-360 in Orange County, FL: address, owner, beds, baths, square footage, assessed value, lot size, and legal description.",
               "tools_triggered": "parcel_lookup",
-              "expected_behavior": "Returns 600 Montgomery St, San Francisco (realieParcelId 06075-0207-032): total assessed value $515,325,100, about 1.24 acres, zoning C3O, legal description BLK 51, last transfer recorded 2020-10-28."
+              "expected_behavior": "Returns 1003 Old Barn Rd, Orlando, FL (realieParcelId 12095-32-22-31-9350-02-360): owner FKH SFR Propco A LP, 4 beds, 2 baths, 1,815 sq ft, built 1997, assessed value $373,350, about 0.13 acres, legal description WINDING CREEK UNIT 3 31/82 LOT 236."
             },
             {
-              "description": "Find comparable home sales around a location",
-              "prompt": "Find 3+ bedroom house sales from the last 12 months within 1 mile of Dolores Park in San Francisco (latitude 37.7596, longitude -122.4269), with sale price, beds, baths, and square footage.",
-              "tools_triggered": "comparables",
-              "expected_behavior": "Lists up to 10 recent sales within about 1 mile with address, sale date, sale price, bedrooms (3 or more), bathrooms, and square footage. The assistant may drop multifamily or TIC records it identifies from the returned details."
+              "description": "Find comparable sales for a subject property given by address",
+              "prompt": "Find comparable 3+ bedroom house sales from the last 12 months within 1 mile of 10663 Fairhaven Way, Orlando, FL, with sale price, beds, baths, and square footage.",
+              "tools_triggered": "address_lookup, comparables",
+              "expected_behavior": "Resolves the subject's coordinates, then lists up to 10 nearby 3+ bedroom house sales from the last 12 months with address, sale date, sale price, beds, baths, and square footage (for example 3024 Natoma Way, 4 beds, 2,224 sq ft, sold May 2026 for $495,000)."
             },
             {
-              "description": "Search properties in a county by foreclosure filter",
-              "prompt": "Find residential properties in Travis County, TX that have foreclosure records. Show the first few addresses and their last sale dates.",
+              "description": "Search a city for recent sales",
+              "prompt": "Find homes in Winter Park, FL (Orange County) that sold since January 1, 2026. Show the first few with sale date, sale price, bedrooms, and square footage.",
               "tools_triggered": "property_search",
-              "expected_behavior": "Returns up to 10 Travis County, TX residential properties that have foreclosure records (the filter includes historical filings), with addresses and last sale dates, and offers to fetch more."
+              "expected_behavior": "Returns up to 10 Winter Park residential properties with transfers since January 1, 2026, each with sale date, sale price when recorded, bedrooms, and square footage (for example 449 Seymour Ave, 3 beds, 1,903 sq ft, sold May 15, 2026 for $1,195,000), and offers to fetch more."
             },
             {
               "description": "Find properties near a coordinate",
-              "prompt": "Find properties within 0.5 miles of latitude 37.422, longitude -122.084 in Mountain View, CA and list their addresses and building sizes.",
+              "prompt": "Find properties within a quarter mile of Lake Eola Park in downtown Orlando (latitude 28.5431, longitude -81.3727) and list their addresses and building sizes.",
               "tools_triggered": "location_search",
-              "expected_behavior": "Returns up to 10 parcels within 0.5 miles of the point, each with address and building details when available."
+              "expected_behavior": "Returns up to 10 parcels within 0.25 miles of the point, each with address and building size (for example 415 E Pine St and 431 E Central Blvd)."
             }
           ],
           "negative": [
@@ -90,7 +90,7 @@
             },
             {
               "description": "The plugin is read-only and cannot change property or ownership records",
-              "prompt": "Update the owner of record for 415 Mission St, San Francisco to my name."
+              "prompt": "Update the owner of record for 10663 Fairhaven Way, Orlando, FL to my name."
             },
             {
               "description": "Realie covers U.S. properties only",
