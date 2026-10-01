@@ -99,7 +99,8 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "Realie does not sell products or process payments in ChatGPT. Tool calls use the connected Realie account's existing plan."
+        "commerce_description": "Realie does not sell products or process payments in ChatGPT. Tool calls use the connected Realie account's existing plan.",
+        "demo_recording_url": "https://drive.google.com/file/d/1QKRVscUs49mSo-PNkKybyZej4fZWjiFn/view?usp=sharing"
       },
       "publication": {
         "countries": [
