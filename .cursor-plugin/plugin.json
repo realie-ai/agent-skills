@@ -8,7 +8,7 @@
     "email": "support@realie.ai"
   },
   "homepage": "https://docs.realie.ai/realie-mcp-server",
-  "repository": "https://github.com/realie-ai/realie-plugin",
+  "repository": "https://github.com/realie-ai/agent-skills",
   "license": "MIT",
   "keywords": [
     "realie",
