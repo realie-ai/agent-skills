@@ -24,10 +24,18 @@ List tools return up to 10 properties per call and page with a cursor or offset.
 
 ## Install
 
-- **Cursor:** install **Realie** from the Cursor Marketplace, then call any Realie tool. Cursor opens Realie sign-in on first use.
-- **Grok Bot:** Grok Bot installs plugins from the Cursor Marketplace. Install **Realie** the same way and connect your Realie account when prompted.
+Realie is not in the Cursor Marketplace yet; the listing is waiting for Cursor's review. Grok Bot uses the same marketplace. Until it's listed:
 
-Without the plugin, add the server directly: see the [Realie MCP Server docs](https://docs.realie.ai/realie-mcp-server).
+- **Cursor (plugin, with the skill):** clone this repo into `~/.cursor/plugins/local/realie` (a real folder, not a symlink), then restart Cursor or run **Developer: Reload Window**. Call any Realie tool; Cursor opens Realie sign-in on first use.
+- **Cursor (MCP server only):** add this to `~/.cursor/mcp.json`:
+
+  ```json
+  { "mcpServers": { "realie": { "url": "https://app.realie.ai/api/mcp" } } }
+  ```
+
+- **Grok Bot (MCP server only):** in the desktop app, open **Connect apps** and choose **Add a custom connector**. Set **Type** to **Remote HTTPS** and **Server URL** to `https://app.realie.ai/api/mcp`, then choose **Add plugin**.
+
+Other clients: see the [Realie MCP Server docs](https://docs.realie.ai/realie-mcp-server).
 
 ## Account and billing
 
