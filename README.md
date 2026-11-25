@@ -31,7 +31,7 @@ Without the plugin, add the server directly: see the [Realie MCP Server docs](ht
 
 ## Account and billing
 
-You need a Realie account with a payment method on file to make tool calls ([app.realie.ai](https://app.realie.ai)). Each successful call uses one token from your plan's monthly allowance; empty results and errors are not billed. See [Plans and Pricing](https://docs.realie.ai/api-reference/pricing).
+Sign in with your Realie account when prompted; new accounts are created in the same window. A Free account gets 25 tool calls a month with no card. Add a payment method at [app.realie.ai](https://app.realie.ai/billing) for more. Each successful call uses one token from your plan's monthly allowance; empty results and errors are not billed. See [Plans and Pricing](https://docs.realie.ai/api-reference/pricing).
 
 Realie is not a consumer reporting agency. Realie data may not be used to decide an individual's eligibility for credit, insurance, employment, or housing. See the [Terms](https://www.realie.ai/terms) and [Privacy Policy](https://www.realie.ai/privacy).
 

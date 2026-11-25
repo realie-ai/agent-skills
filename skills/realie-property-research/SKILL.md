@@ -29,7 +29,8 @@ The Realie MCP server returns live U.S. parcel records. Every successful tool ca
 
 - **No record found (404):** not billed. Check the address spelling, add or fix `county`, or try `parcel_lookup`.
 - **401 / sign-in prompt:** the user needs to connect their Realie account (OAuth). No API key goes in the config.
-- **Tool error with a `code` and `action`:** the account can't make API calls yet (for example, no payment method). Relay the `action` text to the user as-is.
+- **`free_calls_used`:** the Free account has used its 25 free calls this month. Tell the user; they can add a card in Realie Billing to keep going. Don't retry.
+- **Other tool error with a `code` and `action`:** the account can't make calls right now. Relay the `action` text to the user as-is.
 
 ## Limits
 
